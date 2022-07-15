@@ -2,7 +2,7 @@
 
   <h2>User Form</h2>
 
-  <form>
+  <form #form = "ngForm">
 
     <div class="form-group">
       <label for="name">Name</label>
@@ -11,6 +11,7 @@
        class="form-control"
        name="name"
        id="name"
+       [(ngModel)] = "userSettings.name"
         >
     </div>
 
@@ -21,6 +22,7 @@
       type="password"
       id="password"
       name="password"
+      [(ngModel)] = "userSettings.password"
        >
     </div>
 
@@ -30,6 +32,7 @@
        type="checkbox"
        id="emailOffers"
        name="emailOffers"
+       [(ngModel)] = "userSettings.emailOffers"
          >
       <label class="form-check-label" for="emailOffers">
         Email Offers
@@ -46,6 +49,7 @@
        id="lightInterface"
        value="light"
        checked
+       [(ngModel)] = "userSettings.interfaceStyle"
           >
       <label class="form-check-label" for="lightInterface">
         Light
@@ -58,6 +62,7 @@
        name="interfaceStyle"
        id="mediumInterface"
        value="medium"
+       [(ngModel)] = "userSettings.interfaceStyle"
           >
       <label class="form-check-label" for="lightInterface">
         Medium
@@ -70,6 +75,7 @@
        name="interfaceStyle"
        id="darkInterface"
        value="dark"
+       [(ngModel)] = "userSettings.interfaceStyle"
           >
       <label class="form-check-label" for="darkInterface">
         Dark
@@ -79,7 +85,12 @@
 
   <div class="form-group">
     <label for="subscriptionType">Subscription Type</label>
-    <select class="form-control" id="subscriptionType">
+    <select
+    name="subscriptionType"
+    class="form-control"
+    id="subscriptionType"
+    [(ngModel)] = "userSettings.subscriptionType"
+     >
       <option>Monthly</option>
       <option>Annual</option>
       <option>Lifetime</option>
@@ -91,7 +102,9 @@
     <textarea
      class="form-control"
      id="notes"
-     rows="3">
+     rows="3"
+     [(ngModel)] = "userSettings.notes"
+     >
     </textarea>
   </div>
 
@@ -102,9 +115,12 @@
     type="date"
     name="date"
     id="date"
+    [(ngModel)] = "userSettings.date"
     >
   </div>
 
     <button class="btn btn-primary">Send</button>
   </form>
 </div>
+
+{{userSettings | json}}
