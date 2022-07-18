@@ -11,7 +11,7 @@ export class DataService {
   constructor(private http:HttpClient) { }
   postUserSettingsForm(userSettings:UserSettings) : Observable<any>{
 
-   return this.http.post('url', userSettings);
+   return this.http.post('https://putsreq.com/4lC2luKcjGn6BXpfPQgj', userSettings);
    // return of(userSettings); // fake observable not needed anymore as we are now using http
   }
 }
