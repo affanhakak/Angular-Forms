@@ -144,12 +144,13 @@
     <p class="card-text">Sign In with</p>
   </div>
   <div class="card-block">
+    <asl-google-signin-button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()">
 
-    <button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()">Sign In</button>
+    </asl-google-signin-button>
   </div>
 </div>
 
-<div *ngIf="user" class="card text center">
+<div *ngIf="user" class="card text-center">
   <h6 class="card-header">Google Login</h6>
   <div class="card-block"></div>
   <img src="{{user.photoUrl}}" class="card-img-top img-responsive photo" alt="img">
