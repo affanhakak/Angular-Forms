@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { UserSettings } from '../data/user-settings';
 
 @Component({
@@ -23,6 +24,10 @@ userSettings:UserSettings = {...this.actualUserSettings}
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSubmit(form:NgForm){
+console.log(form.valid)
   }
 
 }
