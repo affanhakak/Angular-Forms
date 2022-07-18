@@ -4,6 +4,7 @@ import { UserSettings } from '../data/user-settings';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { DataService } from '../data/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-form',
@@ -13,6 +14,8 @@ import { DataService } from '../data/data.service';
 export class UserFormComponent implements OnInit {
 
   user!:SocialUser;
+
+  subscriptionTypes!:Observable<string[]>;
 
 actualUserSettings: UserSettings = {
   name: null,
@@ -32,6 +35,7 @@ userSettings:UserSettings = {...this.actualUserSettings}
     this.authService.authState.subscribe((user)=>{
       this.user =user;
     })
+    this.subscriptionTypes = this.dataService.getSubscriptionTypes()
   }
 
   onSubmit(form:NgForm){
