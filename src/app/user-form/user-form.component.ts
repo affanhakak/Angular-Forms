@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { UserSettings } from '../data/user-settings';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { DataService } from '../data/data.service';
 
 @Component({
   selector: 'app-user-form',
@@ -25,7 +26,7 @@ actualUserSettings: UserSettings = {
 
 userSettings:UserSettings = {...this.actualUserSettings}
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(private authService: SocialAuthService, private dataService:DataService) { }
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user)=>{
@@ -35,10 +36,14 @@ userSettings:UserSettings = {...this.actualUserSettings}
 
   onSubmit(form:NgForm){
    console.log(form.valid);
+   this.dataService.postUserSettingsForm(this.userSettings).subscribe(
+    result => console.log('success ', result),
+    error => console.log('error ', error)
+   );
   }
 
   signInWithGoogle():any {
-this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut():any {
