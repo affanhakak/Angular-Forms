@@ -1,6 +1,8 @@
 <div class="container">
-
+<div class="header">
   <h2>User Form</h2>
+
+</div>
 
   <form #form = "ngForm" (ngSubmit)="onSubmit(form)">
 
@@ -136,4 +138,31 @@
   </form>
 </div>
 
-{{userSettings | json}}
+<hr>
+
+<div *ngIf="!user" class="card text-center">
+  <h6 class="card-header">Google Login</h6>
+  <div class="card-block">
+    <h4 class="card-title">Not signed In</h4>
+    <p class="card-text">Sign In with</p>
+  </div>
+  <div class="card-block">
+
+    <button class="btn btn-social-icon btn-google mx-1" (click)="signInWithGoogle()">Sign In</button>
+  </div>
+</div>
+
+<div *ngIf="user" class="card text center">
+  <h6 class="card-header">Google Login</h6>
+  <div class="card-block"></div>
+  <img src="{{user.photoUrl}}" class="card-img-top img-responsive photo" alt="img">
+  <div class="card-block">
+    <h4 class="card-title">{{user.name}}</h4>
+    <p class="card-text">{{user.email}}</p>
+  </div>
+  <div class="card-block">
+    <button class="btn btn-social-icon btn-google mx-1" (click)="signOut()">Sign Out</button>
+  </div>
+</div>
+
+

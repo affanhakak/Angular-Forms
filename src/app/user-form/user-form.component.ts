@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserSettings } from '../data/user-settings';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-user-form',
@@ -8,6 +10,8 @@ import { UserSettings } from '../data/user-settings';
   styleUrls: ['./user-form.component.css']
 })
 export class UserFormComponent implements OnInit {
+
+  user!:SocialUser;
 
 actualUserSettings: UserSettings = {
   name: null,
@@ -21,13 +25,24 @@ actualUserSettings: UserSettings = {
 
 userSettings:UserSettings = {...this.actualUserSettings}
 
-  constructor() { }
+  constructor(private authService: SocialAuthService) { }
 
   ngOnInit(): void {
+    this.authService.authState.subscribe((user)=>{
+      this.user =user;
+    })
   }
 
   onSubmit(form:NgForm){
-console.log(form.valid)
+   console.log(form.valid);
+  }
+
+  signInWithGoogle():any {
+this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signOut():any {
+    this.authService.signOut();
   }
 
 }
