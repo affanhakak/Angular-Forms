@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserSettings } from '../data/user-settings';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { SocialUser, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { DataService } from '../data/data.service';
 import { Observable } from 'rxjs';
@@ -13,9 +13,13 @@ import { Observable } from 'rxjs';
 })
 export class UserFormComponent implements OnInit {
 
-  user!:SocialUser;
+  public user!: SocialUser;
 
-  subscriptionTypes!:Observable<string[]>;
+  public loggedIn!:Boolean
+
+  public fb_user!: any;
+
+  public subscriptionTypes!:Observable<string[]>;
 
 actualUserSettings: UserSettings = {
   name: null,
@@ -33,7 +37,11 @@ userSettings:UserSettings = {...this.actualUserSettings}
 
   ngOnInit(): void {
     this.authService.authState.subscribe((user)=>{
-      this.user =user;
+      this.user = user;
+    });
+    this.authService.authState.subscribe((fb_user)=>{
+      this.fb_user = fb_user;
+      this.loggedIn = fb_user != null;
     })
     this.subscriptionTypes = this.dataService.getSubscriptionTypes()
   }
@@ -47,11 +55,15 @@ userSettings:UserSettings = {...this.actualUserSettings}
   }
 
   signInWithGoogle():any {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+   this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   signOut():any {
     this.authService.signOut();
+  }
+
+  signIn(){
+this.authService.signIn(FacebookLoginProvider.PROVIDER_ID)
   }
 
 }
